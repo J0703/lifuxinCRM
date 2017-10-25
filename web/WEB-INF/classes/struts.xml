@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <!-- 将开发者模式打开 -->
+    <constant name="struts.devMode" value="true"/>
+    <!-- 将struts2中对象的创建交给spring -->
+    <constant name="struts.objectFactory" value="spring"/>
+    <package name="crm" extends="json-default">
+        <action name="department" class="departmentAction" method="findDepartment">
+            <result name="success">/pages/department/listDepartment.jsp</result>
+        </action>
+        <action name="updateDepartment" class="com.lanou.hr.action.DepartmentAction" method="save">
+            <result name="success" type="chain">department</result>
+            <result name="input">/pages/department/addOrEditDepartment.jsp</result>
+        </action>
+        <action name="findSingleDepartment" class="com.lanou.hr.action.DepartmentAction" method="findSingle">
+            <result name="success">/pages/department/addOrEditDepartment.jsp</result>
+        </action>
+    </package>
+</struts>
