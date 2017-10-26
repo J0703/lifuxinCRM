@@ -1,6 +1,9 @@
 package com.lanou.hr.domain;
 
 
+import java.util.HashSet;
+
+import java.util.Set;
 
 /**
  * Created by dllo on 17/10/25.
@@ -9,7 +12,7 @@ public class Department {
 
     private String depID;
     private String depName;
-
+    private Set<Post> posts =new HashSet<>();
 
 
     public Department() {
@@ -40,6 +43,14 @@ public class Department {
         this.depName = depName;
     }
 
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
@@ -47,4 +58,5 @@ public class Department {
                 ", depName='" + depName + '\'' +
                 '}';
     }
+
 }

@@ -8,15 +8,64 @@
     <!-- 将struts2中对象的创建交给spring -->
     <constant name="struts.objectFactory" value="spring"/>
     <package name="crm" extends="json-default">
+        <!-- 查询所有部门 -->
         <action name="department" class="departmentAction" method="findDepartment">
             <result name="success">/pages/department/listDepartment.jsp</result>
         </action>
+        <!-- 添加部门 -->
         <action name="updateDepartment" class="com.lanou.hr.action.DepartmentAction" method="save">
             <result name="success" type="chain">department</result>
             <result name="input">/pages/department/addOrEditDepartment.jsp</result>
         </action>
+        <!-- 查询部门id -->
         <action name="findSingleDepartment" class="com.lanou.hr.action.DepartmentAction" method="findSingle">
             <result name="success">/pages/department/addOrEditDepartment.jsp</result>
+        </action>
+        <!-- 获得post的json数据 -->
+        <action name="showPost" class="com.lanou.hr.action.DepartmentAction" method="findDepartment">
+            <result name="success" type="json">
+                <param name="root">posts</param>
+            </result>
+        </action>
+        <!-- 查询所有职务 完成下拉列表 -->
+        <action name="pFindDepartment" class="departmentAction" method="findDepartment">
+            <result name="success">/pages/post/addOrEditPost.jsp</result>
+        </action>
+
+        <!-- 查询所有职务 -->
+        <action name="findPost" class="com.lanou.hr.action.PostAction" method="findPost">
+            <result name="success">/pages/post/listPost.jsp</result>
+        </action>
+
+        <!-- 编辑添加 -->
+        <action name="getSinglePost" class="com.lanou.hr.action.PostAction" method="getSinglePost">
+            <result name="success" type="chain">pFindDepartment</result>
+        </action>
+        <action name="addPost" class="com.lanou.hr.action.PostAction" method="add">
+            <result name="success" type="chain">findPost</result>
+        </action>
+
+
+        <action name="findAll" class="com.lanou.hr.action.StaffAction" method="findAll">
+            <result name="success">/pages/staff/listStaff.jsp</result>
+        </action>
+        <!-- 查询所有员工 -->
+
+        <action name="findDepartment1" class="com.lanou.hr.action.DepartmentAction" method="findDepartment">
+            <result name="success" type="json">
+                <param name="root">departments</param>
+            </result>
+        </action>
+
+
+        <action name="showPost" class="com.lanou.hr.action.PostAction" method="showPost">
+            <result name="success" type="json">
+                <param name="root">posts</param>
+            </result>
+        </action>
+        <!-- 表单回显 -->
+        <action name="showStaff" class="com.lanou.hr.action.StaffAction" method="showStaff">
+                <result name="success">/pages/staff/editStaff.jsp</result>
         </action>
     </package>
 </struts>

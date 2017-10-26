@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -5,6 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
+    <script src="/jquery-3.2.1.js"></script>
 
     <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet"/>
 </head>
@@ -41,24 +43,15 @@
         <tr>
             <td width="80px">部门：</td>
             <td width="200px">
-
-                <select name="crmPost.crmDepartment.depId" onchange="changePost(this)">
-                    <option value="">--请选择部门--</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000001">教学部</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>
+                <select name="depID" id="depID">
+                    <option value="-1">--请选择部门--</option>
                 </select>
-
             </td>
             <td width="80px">职务：</td>
             <td width="200px">
-
-                <select name="crmPost.postId" id="postSelectId">
-                    <option value="">--请选择职务--</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000003">总监</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000004">讲师</option>
-                    <option value="ee050687bd1a4455a153d7bbb7000005">主管</option>
+                <select name="postId" id="postId">
+                    <option value="-1">--请选择职务--</option>
                 </select>
-
             </td>
             <td width="80px">姓名：</td>
             <td width="200px"><input type="text" name="staffName" size="12"/></td>
@@ -75,6 +68,7 @@
 </table>
 
 <table width="100%" border="1">
+
     <tr class="henglan" style="font-weight:bold;">
         <td width="10%" align="center">员工姓名</td>
         <td width="6%" align="center">性别</td>
@@ -84,7 +78,6 @@
         <td width="10%" align="center">编辑</td>
     </tr>
 
-
     <tr class="tabtd1">
         <td align="center">管理员</td>
         <td align="center"></td>
@@ -92,29 +85,25 @@
         <td align="center"></td>
         <td align="center"></td>
         <td width="7%" align="center">
-
-            <a href="${pageContext.request.contextPath}/pages/staff/editStaff.jsp"><img
-                    src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-        </td>
-
-    </tr>
-
-    <tr class="tabtd2">
-        <td align="center">赵六</td>
-        <td align="center">男</td>
-        <td align="center">2012-02-12</td>
-        <td align="center">咨询部</td>
-        <td align="center">主管</td>
-        <td width="7%" align="center">
-
-            <a href="${pageContext.request.contextPath}/pages/staff/editStaff.jsp"><img
+            <a href="${pageContext.request.contextPath}/showPost.action"><img
                     src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
         </td>
     </tr>
+    <s:iterator value="staffs" var="staff">
+        <tr class="tabtd2">
+            <td align="center">${staff.staffName}</td>
+            <td align="center">${staff.gender}</td>
+            <td align="center">${staff.onDutyDate}</td>
+            <td align="center">${staff.post.department.depName}</td>
+            <td align="center">${staff.post.postName}</td>
+            <td width="7%" align="center">
+                <a href="${pageContext.request.contextPath}/showStaff.action?staffId=${staff.staffId}"><img
+                        src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+            </td>
+        </tr>
+    </s:iterator>
 </table>
-
-
-<%-- 
+<%--
 <table border="0" cellspacing="0" cellpadding="0" align="center">
   <tr>
     <td align="right">
@@ -129,5 +118,35 @@
   </tr>
 </table>
 --%>
+
+<script>
+    $(function () {
+        // 页面加载
+        $.post("${pageContext.request.contextPath}/findDepartment1.action", null,
+                function (data) {
+                    var _html = "<option value='-1'>---请选择部门---</option>";
+                    $.each(data, function (index, value) {
+                        _html += '<option value="' + value.depID + '">' + value.depName + '</option>'
+                    });
+                    $("#depID").html(_html);
+                }, "json");
+
+
+        $("#depID").change(function () {
+            $.post("${pageContext.request.contextPath}/showPost.action",
+                    // 传递did参数
+                    {
+                        depID: $("#depID").val()
+                    },
+                    function (data) {
+                        var _html = "<option value='-1'>---请选择职务---</option>";
+                        $.each(data, function (index, value) {
+                            _html += '<option value="' + value.postId + '">' + value.postName + '</option>'
+                        });
+                        $("#postId").html(_html);
+                    }, "json");
+        })
+    });
+</script>
 </body>
 </html>

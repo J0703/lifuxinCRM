@@ -24,13 +24,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department save(Department department) {
-       return departmentDao.save(department);
+    public void save(Department department) {
+       departmentDao.save(department);
     }
 
     @Override
-    public Department update(Department department) {
-        return departmentDao.update(department);
+    public void update(Department department) {
+         departmentDao.update(department);
     }
 
     @Override
@@ -41,6 +41,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department get(Class<Department> departmentClass, Serializable id) {
         return departmentDao.get(departmentClass,id);
+    }
+
+    @Override
+    public Department findById(String depId) {
+        return departmentDao.findById(depId,Department.class);
     }
 
 

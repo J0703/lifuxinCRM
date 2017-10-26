@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,7 +21,7 @@
   <tr>
     <td width="1%"><img src="${pageContext.request.contextPath}/images/tleft.gif"/></td>
     <td width="44%" align="left">[职务管理]</td>
-   
+
     <td width="52%"align="right">
     	<!-- 提交表单 -->
        <a href="javascript:void(0)" onclick="document.forms[0].submit()">
@@ -28,24 +29,25 @@
        </a>
        <!-- 执行js，进行返回 -->
        <a href="javascript:void(0)" onclick="window.history.go(-1)"><img src="${pageContext.request.contextPath}/images/button/tuihui.gif" /></a>
-      
+
     </td>
     <td width="3%" align="right"><img src="${pageContext.request.contextPath}/images/tright.gif"/></td>
   </tr>
 </table>
 
-<form action="${pageContext.request.contextPath}/pages/post/listPost.jsp" method="post">
+<form action="${pageContext.request.contextPath}/addPost.action?postId=${post.postId}" method="post">
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	 <tr>
 	    <td>选择部门：</td>
-	    <td><select name="crmDepartment.depId">
-		    <option value="">----请--选--择----</option>
-		    <option value="ee050687bd1a4455a153d7bbb7000001" selected="selected">教学部</option>
-		    <option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>
+	    <td><select id="depID" name="depID">
+		    <option value="-1">----请--选--择----</option>
+            <s:iterator value="departments" var="department">
+                <option value="${department.depID}">${department.depName}</option>
+            </s:iterator>
 		</select>
   </td>
 	    <td>职务：</td>
-	    <td><input type="text" name="postName" value="总监"/> </td>
+	    <td><input type="text" name="postName" value="${post.postName}"/> </td>
 	  </tr>
 	</table>
 </form>

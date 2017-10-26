@@ -53,7 +53,7 @@
 	 <tr>
 	    <td width="10%">所属部门：</td>
 	    <td width="20%">
-	    	<select name="crmPost.crmDepartment.depId"onchange="changePost(this)">
+	    	<select name="crmPost.crmDepartment.depID"onchange="changePost(this)">
 			    <option value="">----请--选--择----</option>
 			    <option value="ee050687bd1a4455a153d7bbb7000001">教学部</option>
 			    <option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>

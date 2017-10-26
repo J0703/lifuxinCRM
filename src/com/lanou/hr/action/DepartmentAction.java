@@ -3,9 +3,7 @@ package com.lanou.hr.action;
 import com.lanou.hr.domain.Department;
 import com.lanou.hr.service.DepartmentService;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -33,8 +31,6 @@ public class DepartmentAction extends ActionSupport {
     // 查询所有部门
     public String findDepartment() {
         departments = departmentService.findAll();
-//        System.out.println("department"+departments);
-//        ServletActionContext.getRequest().getSession().setAttribute("departments", departments);
         return SUCCESS;
     }
 
@@ -58,7 +54,7 @@ public class DepartmentAction extends ActionSupport {
                 departmentService.save(department);
             }
         } else {
-            Department department = new Department(depId, depName);
+            Department department = new Department(depId,depName);
             departmentService.update(department);
         }
         return SUCCESS;

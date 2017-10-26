@@ -1,5 +1,7 @@
 package com.lanou.hr.dao;
 
+import com.lanou.hr.domain.Post;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +15,10 @@ public interface BaseDao<T> {
     List<T> findAll(String hql);
 
     // 添加部门
-    T save(T t);
+    void save(T t);
 
     // 更新部门
-    T update(T t);
+    void update(T t);
 
     // 条件查询
     T findSingle(String hql, Map<String,Object> params);
@@ -24,7 +26,9 @@ public interface BaseDao<T> {
     // 通过id获得
     T get(Class<T> c, Serializable id);
 
+    // 通过id查询
+    T findById(Serializable id,Class<T> tClass);
 
 
-
+    List<T> find(String hql, Map<String, Object> params);
 }

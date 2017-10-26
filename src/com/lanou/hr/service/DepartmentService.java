@@ -12,12 +12,14 @@ import java.util.Map;
 public interface DepartmentService {
     List<Department> findAll();
 
-    Department save(Department department);
+    void  save(Department department);
 
-    Department update(Department department);
+    void update(Department department);
 
     Department findSingle(String hql, Map<String,Object> params);
 
     Department get(Class<Department> departmentClass,Serializable id);
+
+    Department findById(String depId);
 
 }

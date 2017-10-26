@@ -44,7 +44,7 @@
         </property>
         <!-- 加载实体类的hibernate的映射文件 -->
         <!-- 自动匹配resources目录下所有.hbm.xml文件 -->
-        <property name="mappingLocations" value="classpath:resources/Department.hbm.xml"/>
+        <property name="mappingLocations" value="classpath*:resources/*.hbm.xml"/>
     </bean>
     <!-- 3.配置事物对象(切面)-->
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
@@ -67,7 +67,7 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
     </aop:config>
 
-
+    <!-- Department -->
     <!-- 配置dao层 -->
     <bean id="departmentDao" class="com.lanou.hr.dao.impl.DepartmentDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -76,5 +76,26 @@
     <bean id="departmentService" class="com.lanou.hr.service.impl.DepartmentServiceImpl">
         <property name="departmentDao" ref="departmentDao"/>
     </bean>
+    <!-- Post -->
+    <!-- 配置dao层 -->
+    <bean id="postDao" class="com.lanou.hr.dao.impl.PostDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- 配置service层 -->
+    <bean id="postService" class="com.lanou.hr.service.impl.PostServiceImpl">
+        <property name="postDao" ref="postDao"/>
+    </bean>
+
+
+    <!-- staff -->
+    <!-- 配置dao层 -->
+    <bean id="staffDao" class="com.lanou.hr.dao.impl.StaffDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- 配置sevice层 -->
+    <bean id="staffService" class="com.lanou.hr.service.impl.StaffSericeImpl">
+        <property name="staffDao" ref="staffDao"/>
+    </bean>
+
 
 </beans>
