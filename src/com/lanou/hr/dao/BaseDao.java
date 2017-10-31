@@ -1,6 +1,7 @@
 package com.lanou.hr.dao;
 
 import com.lanou.hr.domain.Post;
+import com.lanou.hr.domain.Staff;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +30,13 @@ public interface BaseDao<T> {
     // 通过id查询
     T findById(Serializable id,Class<T> tClass);
 
-
     List<T> find(String hql, Map<String, Object> params);
+
+    List<T> find(String hql,Object[] params);
+
+    // 分页
+    int getTotalRecord(String hql);
+
+    List<T> findALL(String hql,int startIndex,int pageSize);
+
 }

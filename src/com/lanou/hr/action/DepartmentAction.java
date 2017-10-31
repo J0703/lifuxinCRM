@@ -1,7 +1,11 @@
 package com.lanou.hr.action;
 
 import com.lanou.hr.domain.Department;
+import com.lanou.hr.domain.Staff;
 import com.lanou.hr.service.DepartmentService;
+import com.lanou.hr.service.StaffService;
+import com.lanou.hr.util.PageBean;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +23,6 @@ import java.util.List;
 @Controller("departmentAction")
 @Scope("prototype")
 public class DepartmentAction extends ActionSupport {
-
     @Qualifier("departmentService")
     @Autowired
     private DepartmentService departmentService;
@@ -27,6 +30,10 @@ public class DepartmentAction extends ActionSupport {
     private String depId;
     private Department department;
     private List<Department> departments;
+
+    // 分页
+    private int pageNum;
+    private int pageSize = 5;
 
     // 查询所有部门
     public String findDepartment() {
@@ -60,6 +67,18 @@ public class DepartmentAction extends ActionSupport {
         return SUCCESS;
     }
 
+    // 分页查询department
+    public String findByPage(){
+        if (pageNum == 0){
+            pageNum = 1;
+        }
+        PageBean<Department> pageBean = departmentService.findByPage(pageNum,pageSize);
+        ActionContext.getContext().put("pageBean",pageBean);
+        return SUCCESS;
+    }
+
+
+
 
     public String getDepId() {
         return depId;
@@ -91,5 +110,21 @@ public class DepartmentAction extends ActionSupport {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

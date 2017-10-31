@@ -1,6 +1,7 @@
 package com.lanou.hr.service;
 
 import com.lanou.hr.domain.Post;
+import com.lanou.hr.util.PageBean;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,4 +27,6 @@ public interface PostService {
     void  update(Post post1);
 
     List<Post> find(String hql, Map<String, Object> params);
+
+    PageBean<Post> findByPage(int pageNum,int pageSize);
 }

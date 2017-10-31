@@ -2,8 +2,12 @@ package com.lanou.hr.action;
 
 import com.lanou.hr.domain.Department;
 import com.lanou.hr.domain.Post;
+import com.lanou.hr.domain.Staff;
 import com.lanou.hr.service.DepartmentService;
 import com.lanou.hr.service.PostService;
+import com.lanou.hr.service.StaffService;
+import com.lanou.hr.util.PageBean;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,10 @@ public class PostAction extends ActionSupport {
     private List<Post> posts;
     private Post post;
 
+    // 分页
+    private int pageNum;
+    private int pageSize = 5;
+
     // 查询所有部门
     public String findPost() {
         posts = postService.findAll();
@@ -55,11 +63,11 @@ public class PostAction extends ActionSupport {
                 addActionError("职务名不能为空");
                 return INPUT;
             }
-        Post post = new Post();
-        post.setPostName(postName);
-        post.setDepartment(department);
-        postService.add(post);
-        }else {
+            Post post = new Post();
+            post.setPostName(postName);
+            post.setDepartment(department);
+            postService.add(post);
+        } else {
             Post post = new Post();
             post.setPostId(postId);
             post.setPostName(postName);
@@ -70,14 +78,23 @@ public class PostAction extends ActionSupport {
     }
 
 
-    public String showPost(){
+    public String showPost() {
         String hql = "from Post where depID =:depID";
-        Map<String,Object> params = new HashMap<>();
-        params.put("depID",depID);
-        posts = postService.find(hql,params);
+        Map<String, Object> params = new HashMap<>();
+        params.put("depID", depID);
+        posts = postService.find(hql, params);
         return SUCCESS;
     }
 
+    // 分页查询Post
+    public String findBypage() {
+        if (pageNum == 0) {
+            pageNum = 1;
+        }
+        PageBean<Post> pageBean = postService.findByPage(pageNum, pageSize);
+        ActionContext.getContext().put("pageBean", pageBean);
+        return SUCCESS;
+    }
 
 
     public String getPostId() {
@@ -118,5 +135,21 @@ public class PostAction extends ActionSupport {
 
     public void setDepID(String depID) {
         this.depID = depID;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

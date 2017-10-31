@@ -8,6 +8,22 @@
     <!-- 将struts2中对象的创建交给spring -->
     <constant name="struts.objectFactory" value="spring"/>
     <package name="crm" extends="json-default">
+        <!-- 拦截器  -->
+        <interceptors>
+            <interceptor name="hrInterceptor" class="com.lanou.hr.intercepter.HrIntercepter"/>
+            <interceptor-stack name="myInterceptor">
+                <interceptor-ref name="hrInterceptor">
+                    <param name="excludeMethods">login</param>
+                </interceptor-ref>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="myInterceptor"/>
+        <global-results>
+            <result name="error">/pages/error.jsp</result>
+        </global-results>
+
+
         <!-- 查询所有部门 -->
         <action name="department" class="departmentAction" method="findDepartment">
             <result name="success">/pages/department/listDepartment.jsp</result>
@@ -65,7 +81,47 @@
         </action>
         <!-- 表单回显 -->
         <action name="showStaff" class="com.lanou.hr.action.StaffAction" method="showStaff">
-                <result name="success">/pages/staff/editStaff.jsp</result>
+            <result name="success">/pages/staff/editStaff.jsp</result>
         </action>
+        <!-- 添加员工 -->
+        <action name="addstaff" class="com.lanou.hr.action.StaffAction" method="addStaff">
+            <result name="success" type="chain">findAll</result>
+        </action>
+        <!-- 更新员工 -->
+        <action name="updateStaff" class="com.lanou.hr.action.StaffAction" method="updateStaff">
+            <result name="success" type="chain">findAll</result>
+        </action>
+        <!-- 高级查询 -->
+        <action name="findStaff2" class="com.lanou.hr.action.StaffAction" method="findStaff">
+            <result name="success">/pages/staff/listStaff.jsp</result>
+        </action>
+        <!-- 分页 查询员工数据 -->
+        <action name="findStaff1" class="com.lanou.hr.action.StaffAction" method="findBypage">
+            <result name="success">/pages/staff/listStaff.jsp</result>
+        </action>
+        <!-- 分页 查询职务 -->
+        <action name="findPost1" class="com.lanou.hr.action.PostAction" method="findBypage">
+            <result name="success">/pages/post/listPost.jsp</result>
+        </action>
+        <!--分页查询部门-->
+        <action name="findDepartment22" class="com.lanou.hr.action.DepartmentAction" method="findByPage">
+            <result name="success">/pages/department/listDepartment.jsp</result>
+        </action>
+
+        <!-- 登录-->
+        <action name="login" class="com.lanou.hr.action.LoginAction" method="login">
+            <result name="success">/pages/frame.jsp</result>
+            <result name="input">/pages/login.jsp</result>
+        </action>
+        <!-- 修改登录密码-->
+        <action name="updatePwd" class="com.lanou.hr.action.LoginAction" method="updatePwd">
+            <result name="success">/pages/staff/updPwd.jsp</result>
+            <result name="input">/pages/staff/updPwd.jsp</result>
+        </action>
+
+
     </package>
+
+
+
 </struts>

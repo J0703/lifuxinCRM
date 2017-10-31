@@ -76,6 +76,7 @@
     <bean id="departmentService" class="com.lanou.hr.service.impl.DepartmentServiceImpl">
         <property name="departmentDao" ref="departmentDao"/>
     </bean>
+
     <!-- Post -->
     <!-- 配置dao层 -->
     <bean id="postDao" class="com.lanou.hr.dao.impl.PostDaoImpl">
@@ -85,7 +86,6 @@
     <bean id="postService" class="com.lanou.hr.service.impl.PostServiceImpl">
         <property name="postDao" ref="postDao"/>
     </bean>
-
 
     <!-- staff -->
     <!-- 配置dao层 -->

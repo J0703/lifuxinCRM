@@ -32,9 +32,9 @@
                 d.add('010401', '0104', '就业情况', '${pageContext.request.contextPath}/pages/graduate/listGraduate.jsp', '', 'right');
 
                 d.add('0105', '01', '人力资源部');
-                d.add('010501', '0105', '部门管理', '${pageContext.request.contextPath}/department.action', '', 'right');
-                d.add('010502', '0105', '职务管理', '${pageContext.request.contextPath}/findPost.action', '', 'right');
-                d.add('010503', '0105', '员工管理', '${pageContext.request.contextPath}/findAll.action', '', 'right');
+                d.add('010501', '0105', '部门管理', '${pageContext.request.contextPath}/findDepartment22.action', '', 'right');
+                d.add('010502', '0105', '职务管理', '${pageContext.request.contextPath}/findPost1.action', '', 'right');
+                d.add('010503', '0105', '员工管理', '${pageContext.request.contextPath}/findStaff1.action', '', 'right');
 
                 document.write(d);
             </script>

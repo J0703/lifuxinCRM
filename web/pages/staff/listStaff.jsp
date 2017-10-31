@@ -25,7 +25,7 @@
 
         <td width="57%" align="right">
             <%--高级查询 --%>
-            <a href="javascript:void(0)" onclick="condition()"><img
+            <a href="javascript:void(0)" onclick="document.getElementById('conditionFormId').submit()"><img
                     src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif"/></a>
             <%--员工注入 --%>
             <a href="${pageContext.request.contextPath}/pages/staff/addStaff.jsp">
@@ -38,7 +38,7 @@
 </table>
 
 <!-- 查询条件：马上查询 -->
-<form id="conditionFormId" action="${pageContext.request.contextPath}/staff/staffAction_findAll" method="post">
+<form id="conditionFormId" action="${pageContext.request.contextPath}/findStaff2.action" method="post">
     <table width="88%" border="0" style="margin: 20px;">
         <tr>
             <td width="80px">部门：</td>
@@ -66,60 +66,85 @@
         <td><img src="${pageContext.request.contextPath}/images/result.gif"/></td>
     </tr>
 </table>
+<form action="${pageContext.request.contextPath}/findStaff1.action" method="post">
+    <table width="100%" border="1">
 
-<table width="100%" border="1">
+        <tr class="henglan" style="font-weight:bold;">
+            <td width="10%" align="center">员工姓名</td>
+            <td width="6%" align="center">性别</td>
+            <td width="12%" align="center">入职时间</td>
+            <td width="15%" align="center">所属部门</td>
+            <td width="10%" align="center">职务</td>
+            <td width="10%" align="center">编辑</td>
+        </tr>
 
-    <tr class="henglan" style="font-weight:bold;">
-        <td width="10%" align="center">员工姓名</td>
-        <td width="6%" align="center">性别</td>
-        <td width="12%" align="center">入职时间</td>
-        <td width="15%" align="center">所属部门</td>
-        <td width="10%" align="center">职务</td>
-        <td width="10%" align="center">编辑</td>
-    </tr>
+        <%--<tr class="tabtd1">--%>
+        <%--<td align="center">管理员</td>--%>
+        <%--<td align="center"></td>--%>
+        <%--<td align="center"></td>--%>
+        <%--<td align="center"></td>--%>
+        <%--<td align="center"></td>--%>
+        <%--<td width="7%" align="center">--%>
+        <%--<a href="${pageContext.request.contextPath}/showPost.action"><img--%>
+        <%--src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>--%>
+        <%--</td>--%>
+        <%--</tr>--%>
+        <s:iterator value="staffs" var="staff">
+            <tr class="tabtd2">
+                <td align="center">${staff.staffName}</td>
+                <td align="center">${staff.gender}</td>
+                <td align="center">${staff.onDutyDate}</td>
+                <td align="center">${staff.post.department.depName}</td>
+                <td align="center">${staff.post.postName}</td>
+                <td width="7%" align="center">
+                    <a href="${pageContext.request.contextPath}/showStaff.action?staffId=${staff.staffId}"><img
+                            src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+                </td>
+            </tr>
+        </s:iterator>
+        <s:iterator value="#pageBean.data" var="staff">
+            <tr class="tabtd2">
+                <td align="center">${staff.staffName}</td>
+                <td align="center">${staff.gender}</td>
+                <td align="center">${staff.onDutyDate}</td>
+                <td align="center">${staff.post.department.depName}</td>
+                <td align="center">${staff.post.postName}</td>
+                <td width="7%" align="center">
+                    <a href="${pageContext.request.contextPath}/showStaff.action?staffId=${staff.staffId}"><img
+                            src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+                </td>
+            </tr>
+        </s:iterator>
+    </table>
+    <input id="pageNum" name="pageNum" type="hidden" value="<s:property value="pageBean.pageNum"/>">
+</form>
 
-    <tr class="tabtd1">
-        <td align="center">管理员</td>
-        <td align="center"></td>
-        <td align="center"></td>
-        <td align="center"></td>
-        <td align="center"></td>
-        <td width="7%" align="center">
-            <a href="${pageContext.request.contextPath}/showPost.action"><img
-                    src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+<table border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td align="right">
+            <span><s:property value="#pageBean.pageNum"/>/<s:property value="#pageBean.totalPage"/></span>
+            <span>
+        	<s:if test="#pageBean.pageNum > 1">
+                <a href="javascript:void(0)" onclick="showPage(1)">[首页]</a>&nbsp;&nbsp;
+                <a href="javascript:void(0)"
+                   onclick="showPage(<s:property value="#pageBean.pageNum - 1"/>)">[上一页]</a>&nbsp;&nbsp;
+            </s:if>
+
+                <s:if test="#pageBean.pageNum < #pageBean.totalPage">
+                    <a href="javascript:void(0)"
+                       onclick="showPage(<s:property value="#pageBean.pageNum + 1"/>)">[下一页]</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0)" onclick="showPage(<s:property value="#pageBean.totalPage"/>)">[尾页]</a>
+                </s:if>
+        </span>
         </td>
     </tr>
-    <s:iterator value="staffs" var="staff">
-        <tr class="tabtd2">
-            <td align="center">${staff.staffName}</td>
-            <td align="center">${staff.gender}</td>
-            <td align="center">${staff.onDutyDate}</td>
-            <td align="center">${staff.post.department.depName}</td>
-            <td align="center">${staff.post.postName}</td>
-            <td width="7%" align="center">
-                <a href="${pageContext.request.contextPath}/showStaff.action?staffId=${staff.staffId}"><img
-                        src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-            </td>
-        </tr>
-    </s:iterator>
 </table>
-<%--
-<table border="0" cellspacing="0" cellpadding="0" align="center">
-  <tr>
-    <td align="right">
-    	<span>第1/3页</span>
-        <span>
-        	<a href="#">[首页]</a>&nbsp;&nbsp;
-            <a href="#">[上一页]</a>&nbsp;&nbsp;
-            <a href="#">[下一页]</a>&nbsp;&nbsp;
-            <a href="#">[尾页]</a>
-        </span>
-    </td>
-  </tr>
-</table>
---%>
 
-<script>
+<script type="text/javascript">
+    function showPage(num) {
+        document.getElementById("pageNum").value = num;
+        document.forms[1].submit();
+    }
     $(function () {
         // 页面加载
         $.post("${pageContext.request.contextPath}/findDepartment1.action", null,

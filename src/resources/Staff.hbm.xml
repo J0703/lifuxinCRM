@@ -10,7 +10,7 @@
         <property name="loginPwd"/>
         <property name="staffName"/>
         <property name="gender"/>
-        <property name="onDutyDate"/>
+        <property name="onDutyDate" type="date"/>
 
         <many-to-one name="post"
                      class="com.lanou.hr.domain.Post"

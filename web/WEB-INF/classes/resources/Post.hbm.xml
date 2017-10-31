@@ -8,7 +8,7 @@
         </id>
         <property name="postName"/>
         <many-to-one name="department"
-                     cascade="save-update"
+                     cascade="all"
                      class="com.lanou.hr.domain.Department"
                      column="depID"
                      lazy="false"

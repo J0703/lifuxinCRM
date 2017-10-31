@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -48,7 +49,7 @@
         <tr align="center">
 
             <td class="login_msg" width="400">
-                <form action="${pageContext.request.contextPath}/pages/frame.jsp" method="post">
+                <form action="${pageContext.request.contextPath}/login.action" method="post">
 
                     <font size="6" color="#ffffff">
                         欢迎使用CRM系统
@@ -56,11 +57,12 @@
                     <br/>
                     <br/>
                     <font color="#ff0000">
-                        错误提示
+                        <s:actionerror/>
+                        <s:fielderror/>
                     </font>
                     <br/>
                     用户名：<input type="text" name="loginName" class="msg"/><br/><br/>
-                    密&nbsp;码：<input type="password" class="msg"/><br/><br/>
+                    密&nbsp;码：<input type="password" name="loginPwd" class="msg"/><br/><br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="submit" class="btn" value="登录 "/>
 
@@ -69,13 +71,12 @@
         </tr>
     </table>
 
-    <script type="text/javascript">
-//         s标签中直接编写JavaScript代码时，不支持el表达式，只能提供单独的函数
-         function registerUrl(){
-         document.location='${pageContext.request.contextPath}/uiAction_staff_register';
-         }
-
-    </script>
-</div>
+    <%--<script type="text/javascript">--%>
+<%--//         s标签中直接编写JavaScript代码时，不支持el表达式，只能提供单独的函数--%>
+         <%--function registerUrl(){--%>
+         <%--document.location='${pageContext.request.contextPath}/uiAction_staff_register';--%>
+         <%--}--%>
+<%--//    </script>--%>
+<%--//</div>--%>
 </BODY>
 </HTML>

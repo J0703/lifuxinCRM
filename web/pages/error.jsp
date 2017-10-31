@@ -8,7 +8,7 @@
 </head>
 <body>
 	<font color="#f00">
-		系统繁忙，请稍后重试
+		对不起,你还没有权限,等你进人事部在说吧!
 	</font>
 </body>
 </html>
