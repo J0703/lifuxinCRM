@@ -76,6 +76,7 @@
     <bean id="departmentService" class="com.lanou.hr.service.impl.DepartmentServiceImpl">
         <property name="departmentDao" ref="departmentDao"/>
     </bean>
+
     <!-- Post -->
     <!-- 配置dao层 -->
     <bean id="postDao" class="com.lanou.hr.dao.impl.PostDaoImpl">
@@ -86,7 +87,6 @@
         <property name="postDao" ref="postDao"/>
     </bean>
 
-
     <!-- staff -->
     <!-- 配置dao层 -->
     <bean id="staffDao" class="com.lanou.hr.dao.impl.StaffDaoImpl">
@@ -96,6 +96,30 @@
     <bean id="staffService" class="com.lanou.hr.service.impl.StaffSericeImpl">
         <property name="staffDao" ref="staffDao"/>
     </bean>
+
+
+    <!-- class -->
+    <!-- 配置dao层 -->
+    <bean id="classesDao" class="com.lanou.teach.dao.impl.ClassesDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- 配置service -->
+    <bean id="classesService" class="com.lanou.teach.service.impl.ClassesServiceImpl">
+        <property name="classesDao" ref="classesDao"/>
+    </bean>
+
+    <!-- courseType -->
+    <!-- 配置dao层 -->
+    <bean id="courseDao" class="com.lanou.teach.dao.impl.CourseDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- 配置service -->
+    <bean id="courseService" class="com.lanou.teach.service.impl.CourseServiceImpl">
+        <property name="courseDao" ref="courseDao"/>
+    </bean>
+
+
+
 
 
 </beans>

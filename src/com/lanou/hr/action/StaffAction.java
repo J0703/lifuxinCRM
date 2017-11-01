@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import com.opensymphony.xwork2.ModelDriven;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -86,6 +87,24 @@ public class StaffAction extends ActionSupport implements ModelDriven<Staff> {
         return SUCCESS;
     }
 
+    /**
+     * 添加编辑的表单验证
+     */
+    public void validateUpdateStaff() {
+        if (StringUtils.isBlank(staffDriven.getLoginName())) {
+            addActionError("登录名不能为空");
+        }
+        if (StringUtils.isBlank(staffDriven.getLoginPwd())) {
+            addActionError("登录密码不能为空");
+        }
+        if (StringUtils.isBlank(staffDriven.getStaffName())) {
+            addActionError("员工姓名不能为空");
+        }
+        if (StringUtils.isBlank(staffDriven.getGender())) {
+            addActionError("员工性别不能为空");
+        }
+    }
+
     // 高级查询
     public String findStaff() {
         staffs = staffService.findStaff(staffDriven, depID, postId);
@@ -102,6 +121,25 @@ public class StaffAction extends ActionSupport implements ModelDriven<Staff> {
         ActionContext.getContext().put("pageBean", pageBean);
         return SUCCESS;
     }
+    /**
+     * 添加员工表单校验
+     */
+    public void validateAddStaff() {
+        if (StringUtils.isBlank(staffDriven.getLoginName())) {
+            addActionError("登录名不能为空");
+        }
+        if (StringUtils.isBlank(staffDriven.getLoginPwd())) {
+            addActionError("登录密码不能为空");
+        }
+        if (StringUtils.isBlank(staffDriven.getStaffName())) {
+            addActionError("员工姓名不能为空");
+        }
+        if (StringUtils.isBlank(staffDriven.getGender())) {
+            addActionError("员工性别不能为空");
+        }
+
+    }
+
 
 
     public List<Staff> getStaffs() {
@@ -160,9 +198,11 @@ public class StaffAction extends ActionSupport implements ModelDriven<Staff> {
         this.pageSize = pageSize;
     }
 
+    // 实现驱动模型
     @Override
     public Staff getModel() {
         staffDriven = new Staff();
         return staffDriven;
     }
+
 }

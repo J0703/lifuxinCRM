@@ -67,17 +67,4 @@ public class MainTest {
 
     }
 
-//    创建staff的表
-//    @Test
-//    public void test2(){
-//        SessionFactory sessionFactory = (SessionFactory) context.getBean("sessionFactory");
-//        Session session = sessionFactory.getCurrentSession();
-//        Transaction transaction = session.beginTransaction();
-//
-//
-//        transaction.commit();
-//    }
-
-
-
 }

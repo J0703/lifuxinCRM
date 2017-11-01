@@ -5,6 +5,7 @@ import com.lanou.hr.domain.Department;
 /**
  * Created by dllo on 17/10/25.
  */
+
 public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements DepartmentDao{
 
 }

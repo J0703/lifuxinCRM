@@ -98,4 +98,28 @@
     </bean>
 
 
+    <!-- class -->
+    <!-- 配置dao层 -->
+    <bean id="classesDao" class="com.lanou.teach.dao.impl.ClassesDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- 配置service -->
+    <bean id="classesService" class="com.lanou.teach.service.impl.ClassesServiceImpl">
+        <property name="classesDao" ref="classesDao"/>
+    </bean>
+
+    <!-- courseType -->
+    <!-- 配置dao层 -->
+    <bean id="courseDao" class="com.lanou.teach.dao.impl.CourseDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- 配置service -->
+    <bean id="courseService" class="com.lanou.teach.service.impl.CourseServiceImpl">
+        <property name="courseDao" ref="courseDao"/>
+    </bean>
+
+
+
+
+
 </beans>

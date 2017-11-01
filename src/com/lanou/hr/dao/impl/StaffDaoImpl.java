@@ -46,25 +46,25 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
     @Override
     public List<Staff> findByCD(String sql1, List<Object> params, int startIndex, int pageSize) {
 
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         Object staffName = params.get(0);
         Object depID = params.get(1);
         Object postId = params.get(2);
         List<Object> lists = new ArrayList<>();
         if (staffName.toString().trim().length() > 0){
-            stringBuffer.append(" and staffName like ?");
+            sb.append(" and staffName like ?");
             lists.add(staffName);
         }
         if (!depID.equals("-1")){
-            stringBuffer.append(" and depID like ?");
+            sb.append(" and depID like ?");
             lists.add(depID);
         }
         if (!postId.equals("-1")){
-            stringBuffer.append(" and postId like ?");
+            sb.append(" and postId like ?");
             lists.add(postId);
         }
 
-        return this.getHibernateTemplate().execute(new PageHibernateCallback<Staff>(stringBuffer.toString(), lists.toArray(), startIndex, pageSize));
+        return this.getHibernateTemplate().execute(new PageHibernateCallback<Staff>(sb.toString(), lists.toArray(), startIndex, pageSize));
     }
 
 

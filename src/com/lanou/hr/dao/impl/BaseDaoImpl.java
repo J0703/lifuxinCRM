@@ -25,7 +25,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
         return tList;
     }
 
-    // 增加方法
+    // 添加方法
     @Override
     public void save(T t) {
         Session session = currentSession();
@@ -40,7 +40,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
         session.update(t);
     }
 
-
+    // 根据参数查询返回一个对象
     @Override
     public T findSingle(String hql, Map<String, Object> params) {
         Session session = currentSession();
@@ -56,14 +56,14 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
         return null;
     }
 
+    // 高级查询
     @Override
     public T get(Class<T> c, Serializable id) {
         Session session = currentSession();
         T t = (T) session.get(c, id);
-        // 高级查询
         return t;
     }
-
+    // 通过id查询对象
     @Override
     public T findById(Serializable id, Class<T> tClass) {
         return null;

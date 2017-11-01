@@ -30,7 +30,7 @@
         </action>
         <!-- 添加部门 -->
         <action name="updateDepartment" class="com.lanou.hr.action.DepartmentAction" method="save">
-            <result name="success" type="chain">department</result>
+            <result name="success" type="chain">findDepartment22</result>
             <result name="input">/pages/department/addOrEditDepartment.jsp</result>
         </action>
         <!-- 查询部门id -->
@@ -46,6 +46,7 @@
         <!-- 查询所有职务 完成下拉列表 -->
         <action name="pFindDepartment" class="departmentAction" method="findDepartment">
             <result name="success">/pages/post/addOrEditPost.jsp</result>
+
         </action>
 
         <!-- 查询所有职务 -->
@@ -58,7 +59,8 @@
             <result name="success" type="chain">pFindDepartment</result>
         </action>
         <action name="addPost" class="com.lanou.hr.action.PostAction" method="add">
-            <result name="success" type="chain">findPost</result>
+            <result name="success" type="chain">findPost1</result>
+            <result name="input" type="chain">pFindDepartment</result>
         </action>
 
 
@@ -66,7 +68,6 @@
             <result name="success">/pages/staff/listStaff.jsp</result>
         </action>
         <!-- 查询所有员工 -->
-
         <action name="findDepartment1" class="com.lanou.hr.action.DepartmentAction" method="findDepartment">
             <result name="success" type="json">
                 <param name="root">departments</param>
@@ -86,10 +87,12 @@
         <!-- 添加员工 -->
         <action name="addstaff" class="com.lanou.hr.action.StaffAction" method="addStaff">
             <result name="success" type="chain">findAll</result>
+            <result name="input">pages/staff/addStaff.jsp</result>
         </action>
         <!-- 更新员工 -->
         <action name="updateStaff" class="com.lanou.hr.action.StaffAction" method="updateStaff">
             <result name="success" type="chain">findAll</result>
+            <result name="input">/pages/staff/editStaff.jsp</result>
         </action>
         <!-- 高级查询 -->
         <action name="findStaff2" class="com.lanou.hr.action.StaffAction" method="findStaff">
@@ -119,8 +122,24 @@
             <result name="input">/pages/staff/updPwd.jsp</result>
         </action>
 
+        <!--====================================================================-->
+        <!-- 添加课程或者编辑课程 -->
+        <action name="addCourse" class="com.lanou.teach.action.CourseAction" method="addCourse">
+            <result name="success" type="chain">findCourse</result>
+            <result name="input">/pages/coursetype/addOrEditCourse.jsp</result>
+        </action>
+        <!-- 查询所有课程-->
+        <action name="findCourse" class="com.lanou.teach.action.CourseAction" method="findCourse">
+            <result name="success">/pages/coursetype/listCourse.jsp</result>
+        </action>
+        <!-- 查询一个对象 -->
+        <action name="findSingleCourse" class="com.lanou.teach.action.CourseAction" method="findSingle">
+            <result name="success">/pages/coursetype/addOrEditCourse.jsp</result>
+        </action>
+
 
     </package>
+
 
 
 </struts>

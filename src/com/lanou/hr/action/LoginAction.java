@@ -5,12 +5,10 @@ import com.lanou.hr.service.StaffService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +38,7 @@ public class LoginAction extends ActionSupport{
         }
         params.put("loginPwd",loginPwd);
         Staff staff = staffService.login(params);
-        ServletActionContext.getRequest().getSession().setAttribute("staff",staff);
+        ActionContext.getContext().getApplication().put("staff",staff);
         if (staff == null){
             addActionError("你输入的密码有误!");
             return INPUT;
@@ -51,7 +49,7 @@ public class LoginAction extends ActionSupport{
 
     // 修改密码
     public String updatePwd(){
-        Staff staff = (Staff) ServletActionContext.getRequest().getSession().getAttribute("staff");
+        Staff staff = (Staff) ActionContext.getContext().getApplication().get("staff");
         if (StringUtils.isBlank(oldPassword) && StringUtils.isBlank(newPassword)&&StringUtils.isBlank(reNewPassword)){
             addActionError("输入的密码不能为空,重新输入");
             return INPUT;
@@ -66,7 +64,10 @@ public class LoginAction extends ActionSupport{
             addActionError("确认失败,请重新输入吧!");
             return INPUT;
         }
-
+        if (newPassword.length() < 3){
+            addActionError("新密码应该在3位以上");
+            return INPUT;
+        }
         staff.setLoginPwd(newPassword);
         staffService.update(staff);
         addFieldError("msg","修改密码成功!!");

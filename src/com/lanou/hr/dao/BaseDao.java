@@ -30,6 +30,7 @@ public interface BaseDao<T> {
     // 通过id查询
     T findById(Serializable id,Class<T> tClass);
 
+    // 查询返回集合
     List<T> find(String hql, Map<String, Object> params);
 
     List<T> find(String hql,Object[] params);
@@ -37,6 +38,7 @@ public interface BaseDao<T> {
     // 分页
     int getTotalRecord(String hql);
 
+    // 分页时的查询所有
     List<T> findALL(String hql,int startIndex,int pageSize);
 
 }

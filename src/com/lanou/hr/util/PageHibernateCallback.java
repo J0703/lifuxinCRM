@@ -30,6 +30,7 @@ public class PageHibernateCallback<T> implements HibernateCallback<List<T>> {
         this.pageSize = pageSize;
     }
 
+
     @Override
     public List<T> doInHibernate(Session session) throws HibernateException {
         Query query = session.createQuery(hql);

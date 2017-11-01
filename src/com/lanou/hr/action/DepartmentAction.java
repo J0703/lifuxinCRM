@@ -7,12 +7,15 @@ import com.lanou.hr.service.StaffService;
 import com.lanou.hr.util.PageBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import javax.servlet.ServletContext;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,7 +25,7 @@ import java.util.List;
  */
 @Controller("departmentAction")
 @Scope("prototype")
-public class DepartmentAction extends ActionSupport {
+public class DepartmentAction extends ActionSupport implements ModelDriven<Department> {
     @Qualifier("departmentService")
     @Autowired
     private DepartmentService departmentService;
@@ -34,6 +37,7 @@ public class DepartmentAction extends ActionSupport {
     // 分页
     private int pageNum;
     private int pageSize = 5;
+    private Department departmentDriven;
 
     // 查询所有部门
     public String findDepartment() {
@@ -43,7 +47,6 @@ public class DepartmentAction extends ActionSupport {
 
     public String findSingle() {
         Serializable id = depId;
-        System.out.println(depId);
         department = departmentService.get(Department.class, id);
         return SUCCESS;
     }
@@ -51,33 +54,30 @@ public class DepartmentAction extends ActionSupport {
 
     // 添加一个部门
     public String save() {
-        System.out.println("departID" + depId);
-        if (StringUtils.isBlank(depId)) {
-            if (StringUtils.isBlank(depName)) {
-                addActionError("输入的数据不能为空!");
+        if (StringUtils.isBlank(departmentDriven.getDepID())) {
+            if (StringUtils.isBlank(departmentDriven.getDepName())) {
+                ActionContext.getContext().getApplication().put("msg", "部门或职务不能为空!");
                 return INPUT;
             } else {
-                Department department = new Department(depName);
+                Department department = new Department(departmentDriven.getDepName());
                 departmentService.save(department);
             }
         } else {
-            Department department = new Department(depId,depName);
+            Department department = new Department(departmentDriven.getDepID(), departmentDriven.getDepName());
             departmentService.update(department);
         }
         return SUCCESS;
     }
 
     // 分页查询department
-    public String findByPage(){
-        if (pageNum == 0){
+    public String findByPage() {
+        if (pageNum == 0) {
             pageNum = 1;
         }
-        PageBean<Department> pageBean = departmentService.findByPage(pageNum,pageSize);
-        ActionContext.getContext().put("pageBean",pageBean);
+        PageBean<Department> pageBean = departmentService.findByPage(pageNum, pageSize);
+        ActionContext.getContext().put("pageBean", pageBean);
         return SUCCESS;
     }
-
-
 
 
     public String getDepId() {
@@ -126,5 +126,11 @@ public class DepartmentAction extends ActionSupport {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    @Override
+    public Department getModel() {
+        departmentDriven = new Department();
+        return departmentDriven;
     }
 }

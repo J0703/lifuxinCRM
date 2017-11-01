@@ -46,15 +46,15 @@
         </tr>
         <tr>
             <td>原始密码：</td>
-            <td><input type="text" name="oldPassword" value=""/></td>
+            <td><input type="password" name="oldPassword" value=""/></td>
         </tr>
         <tr>
             <td>新&nbsp;密&nbsp;码：</td>
-            <td><input type="text" name="newPassword" value=""/></td>
+            <td><input type=password name="newPassword" value=""/></td>
         </tr>
         <tr>
             <td>确认密码：</td>
-            <td><input type="text" name="reNewPassword" value=""/></td>
+            <td><input type="password" name="reNewPassword" value=""/></td>
         </tr>
         <tr>
             <td colspan="2">

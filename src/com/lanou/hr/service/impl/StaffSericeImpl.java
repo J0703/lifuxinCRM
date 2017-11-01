@@ -59,6 +59,13 @@ public class StaffSericeImpl implements StaffService {
             params.add(depId);
             sb.append(" and staffName =?");
             params.add(staff.getStaffName());
+        } else if (!depId.equals("-1") && !postId.equals("-1") && !StringUtils.isBlank(staff.getStaffName())) {
+            sb.append(" and s.post.department.depID =?");
+            params.add(depId);
+            sb.append(" and s.post.postId =?");
+            params.add(postId);
+            sb.append(" and staffName =?");
+            params.add(staff.getStaffName());
         } else if (depId.equals("-1") && postId.equals("-1") && StringUtils.isBlank(staff.getStaffName())) {
             sb.append("");
         } else if (depId.equals("-1") && postId.equals("-1")) { // 按姓名查询
@@ -69,14 +76,13 @@ public class StaffSericeImpl implements StaffService {
     }
 
 
-
     @Override
     public PageBean<Staff> findByPage(int pageNum, int pageSize) {
         String hql = "select count(*) from Staff";
         String hql1 = "from Staff where 1=1";
         int totalRecord = staffDao.getTotalRecord(hql);
-        PageBean<Staff> pageBean = new PageBean<>(pageNum,pageSize,totalRecord);
-        List<Staff> data = staffDao.findALL(hql1,pageBean.getStartIndex(),pageBean.getPageSize());
+        PageBean<Staff> pageBean = new PageBean<>(pageNum, pageSize, totalRecord);
+        List<Staff> data = staffDao.findALL(hql1, pageBean.getStartIndex(), pageBean.getPageSize());
         pageBean.setData(data);
         return pageBean;
     }
@@ -85,22 +91,23 @@ public class StaffSericeImpl implements StaffService {
     public PageBean<Staff> findByCD(List<Object> params, int pageNum, int pageSize) {
         String hql = "select count(*) from Staff where 1=1";
         String hql1 = "from Staff where 1=1";
-        int totalRecord = staffDao.getTotalRecondStaff(hql,params);
-        PageBean<Staff> pageBean = new PageBean<>(pageNum,pageSize,totalRecord);
-        List<Staff> data = staffDao.findByCD(hql1,params,pageBean.getStartIndex(),pageBean.getPageSize());
+        int totalRecord = staffDao.getTotalRecondStaff(hql, params);
+        PageBean<Staff> pageBean = new PageBean<>(pageNum, pageSize, totalRecord);
+        List<Staff> data = staffDao.findByCD(hql1, params, pageBean.getStartIndex(), pageBean.getPageSize());
         pageBean.setData(data);
-        return pageBean;}
+        return pageBean;
+    }
 
     @Override
     public Staff findSingle(Map<String, Object> params) {
         String hql = "from Staff where loginName =:loginName";
-        return staffDao.findSingle(hql,params);
+        return staffDao.findSingle(hql, params);
     }
 
     @Override
     public Staff login(Map<String, Object> params) {
         String hql = "from Staff where loginName =:loginName and loginPwd =:loginPwd";
-        return staffDao.findSingle(hql,params);
+        return staffDao.findSingle(hql, params);
     }
 
 

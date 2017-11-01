@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
-    <script src="/jquery-3.2.1.js"></script>
+    <script src="/js/jquery-3.2.1.js"></script>
 
     <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet"/>
 </head>
@@ -122,7 +122,7 @@
 <table border="0" cellspacing="0" cellpadding="0" align="center">
     <tr>
         <td align="right">
-            <span><s:property value="#pageBean.pageNum"/>/<s:property value="#pageBean.totalPage"/></span>
+            <span>第<s:property value="#pageBean.pageNum"/>/<s:property value="#pageBean.totalPage"/>页</span>
             <span>
         	<s:if test="#pageBean.pageNum > 1">
                 <a href="javascript:void(0)" onclick="showPage(1)">[首页]</a>&nbsp;&nbsp;

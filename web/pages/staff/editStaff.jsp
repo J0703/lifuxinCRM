@@ -7,7 +7,7 @@
     <title>无标题文档</title>
     <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/Calendar.js"></script>
-    <script src="/jquery-3.2.1.js"></script>
+    <script src="/js/jquery-3.2.1.js"></script>
 
 </head>
 
@@ -76,8 +76,7 @@
                 <select name="post.postId" id="postId">
                     <option value='
                             <s:property value="staff.post.postId"/>
-                            <c:if test="${empty staff}">-1
-                    </c:if>'>
+                            <c:if test="${empty staff}">-1</c:if>'>
                         ---<s:property
                             value="staff.post.postName"/><c:if test="${empty staff}">请选择</c:if>---
                     </option>
@@ -95,6 +94,7 @@
             <td width="62%"></td>
         </tr>
     </table>
+    <s:actionerror/>
     <script>
         $(function () {
             // 页面加载

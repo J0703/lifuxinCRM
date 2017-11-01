@@ -48,6 +48,7 @@ public class PostAction extends ActionSupport {
         return SUCCESS;
     }
 
+    // 根据id查找对象
     public String getSinglePost() {
         Serializable id = postId;
         post = postService.get(Post.class, id);
@@ -77,7 +78,19 @@ public class PostAction extends ActionSupport {
         return SUCCESS;
     }
 
+    /**
+     * 添加职务的验证
+     */
+    public void validateAdd() {
+        if (StringUtils.isBlank(postName)){
+            addActionError("部门,职务名不能为空");
+        }
+    }
 
+    /**
+     * 根据id查询post
+     * @return
+     */
     public String showPost() {
         String hql = "from Post where depID =:depID";
         Map<String, Object> params = new HashMap<>();
